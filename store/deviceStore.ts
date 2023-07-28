@@ -33,7 +33,7 @@ export const useDeviceStore = create<DataState>(set => ({
         },
       );
 
-      console.log(data);
+      // console.log(data);
       set({ DataDevices: data });
     } catch (error) {
       console.error(error);
