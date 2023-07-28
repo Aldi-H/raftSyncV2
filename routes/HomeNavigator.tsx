@@ -5,12 +5,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import HomePage from '../pages/HomePage';
 import AddPage from '../pages/AddPage';
+import { StyleSheet } from 'react-native';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const HomeNavigator = () => {
   return (
-    <Tab.Navigator barStyle={{ backgroundColor: '#F1F1F1' }}>
+    <Tab.Navigator barStyle={styles.barStyle}>
       <Tab.Screen
         name="Home"
         component={HomePage}
@@ -33,14 +34,6 @@ const HomeNavigator = () => {
       />
     </Tab.Navigator>
   );
-  /* return (
-    <TabController items={[{ label: 'Home' }, { label: 'Add' }]}>
-      <View flex>
-        <TabController.TabPage index={0}>{HomePage()}</TabController.TabPage>
-      </View>
-      <TabController.TabBar enableShadows />
-    </TabController>
-  ); */
 };
 
 const AppNavigator = () => {
@@ -50,5 +43,11 @@ const AppNavigator = () => {
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  barStyle: {
+    backgroundColor: '#F1F1F1',
+  },
+});
 
 export default AppNavigator;
