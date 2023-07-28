@@ -1,17 +1,22 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import HomePage from '../pages/HomePage';
 import AddPage from '../pages/AddPage';
-import { StyleSheet } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import DetailPage from '../pages/DetailPage';
+// import { RootStackParamList } from './NavigationType';
+// import DetailPage from '../pages/DetailPage';
 
+const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const HomeNavigator = () => {
   return (
-    <Tab.Navigator barStyle={styles.barStyle}>
+    <Tab.Navigator initialRouteName="Home" barStyle={styles.barStyle}>
       <Tab.Screen
         name="Home"
         component={HomePage}
@@ -39,7 +44,10 @@ const HomeNavigator = () => {
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <HomeNavigator />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Home Page" component={HomeNavigator} />
+        <Stack.Screen name="Detail" component={DetailPage} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
