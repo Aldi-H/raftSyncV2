@@ -1,12 +1,13 @@
 import React from 'react';
-import { Text, View } from 'react-native-ui-lib';
+import { View } from 'react-native-ui-lib';
 
 import LineAreaChartComponent from '../components/charts/LineAreaChartComponent';
+import CardComponent from '../components/cards/CardComponent';
 
 const DetailPage = () => {
   return (
-    <View>
-      <Text>Detail Page</Text>
+    <View useSafeArea={true}>
+      <CardComponent />
       <LineAreaChartComponent />
     </View>
   );
