@@ -54,7 +54,7 @@ const AppNavigator = () => {
 
 const styles = StyleSheet.create({
   barStyle: {
-    backgroundColor: '#F1F1F1',
+    backgroundColor: '#FFFFFF',
   },
 });
 
