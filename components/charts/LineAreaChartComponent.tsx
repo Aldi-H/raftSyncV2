@@ -17,6 +17,7 @@ import {
   Stop,
   Text as SvgText,
 } from 'react-native-svg';
+import LinkButtonComponent from '../button/LinkButtonComponent';
 
 const apx = (size: number = 0) => {
   let width = Dimensions.get('window').width;
@@ -206,6 +207,8 @@ const LineAreaChartComponent = () => {
           y: apx(20),
         }}
       />
+
+      <LinkButtonComponent deviceId={deviceId} />
     </View>
   );
 };
