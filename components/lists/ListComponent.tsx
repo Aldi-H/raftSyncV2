@@ -8,11 +8,16 @@ import { useNavigation } from '@react-navigation/native';
 
 const ListComponent = () => {
   const navigation = useNavigation();
-  const { DataDevices, getAllDevices } = useDeviceStore();
+  const { DataDevices, getAllDevices, deleteDevice } = useDeviceStore();
 
   useEffect(() => {
     getAllDevices();
   }, []);
+
+  const handleDelete = async (deviceId: string) => {
+    await deleteDevice(deviceId);
+    getAllDevices();
+  };
 
   const handleItemPress = (deviceId: string) => {
     navigation.navigate('Detail', { deviceId });
@@ -28,7 +33,7 @@ const ListComponent = () => {
             leftItem={{
               text: 'Delete',
               background: Colors.red30,
-              onPress: () => console.log('delete pressed'),
+              onPress: () => handleDelete(DataDevice.id),
             }}>
             <ListItem
               bg-white
