@@ -132,7 +132,7 @@ const LineAreaChartComponent = () => {
             y={-apx(24 + 24 + 20) / 2}
             rx={apx(12)}
             ry={apx(12)}
-            width={apx(300)}
+            width={apx(200)}
             height={apx(96)}
             stroke="rgba(254, 190, 24, 0.27)"
             fill="rgba(255, 255, 255, 0.8)"
