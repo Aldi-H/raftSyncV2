@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import { View, Toast, Text, Typography, Colors } from 'react-native-ui-lib';
 import { RouteProp, useRoute } from '@react-navigation/native';
@@ -8,13 +8,15 @@ import LineAreaChartComponent from '../components/charts/LineAreaChartComponent'
 import CardComponent from '../components/cards/CardComponent';
 import CardControlComponent from '../components/cards/CardControlComponent';
 import { useChartStore } from '../store/chartStore';
+import { RefreshControl, ScrollView } from 'react-native-gesture-handler';
 
 type LineAreaChartScreenRouteProp = RouteProp<RootStackParamList, 'Detail'>;
 
 const DetailPage = () => {
-  const { openValve } = useChartStore();
+  const { getAllChartData, openValve } = useChartStore();
   const [isVisible, setIsVisible] = useState(false);
   const [selectedVolume, setSelectedVolume] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
 
   const route = useRoute<LineAreaChartScreenRouteProp>();
   const { deviceId } = route.params;
@@ -25,6 +27,12 @@ const DetailPage = () => {
     setSelectedVolume(volume);
     setIsVisible(true);
   };
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    getAllChartData(deviceId, '');
+    setRefreshing(false);
+  }, [getAllChartData]);
 
   Typography.loadTypographies({
     text60BL: { fontSize: 18, fontWeight: '700', color: Colors.dark80 },
@@ -38,7 +46,6 @@ const DetailPage = () => {
         autoDismiss={5000}
         onDismiss={() => setIsVisible(false)}
         backgroundColor={Colors.green30}
-        message={`Nutrisi Berhasil Ditambah ${volume}ml`}
         style={styles.toast}>
         <Text text60BL color={Colors.grey80} center>
           Nutrisi Berhasil Ditambah {volume}
@@ -48,7 +55,10 @@ const DetailPage = () => {
   };
 
   return (
-    <View useSafeArea={true}>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
       <CardComponent />
       <LineAreaChartComponent />
       <CardControlComponent handleChangeVolume={handleChangeVolume} />
@@ -58,7 +68,7 @@ const DetailPage = () => {
           <RenderToast volume={selectedVolume} />
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
