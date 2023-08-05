@@ -1,6 +1,13 @@
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import { Button, Card, Text, Typography, View } from 'react-native-ui-lib';
+import {
+  Button,
+  Card,
+  Text,
+  Typography,
+  View,
+  GridView,
+} from 'react-native-ui-lib';
 
 const CardControlComponent = ({ handleChangeVolume }: any) => {
   Typography.loadTypographies({
@@ -13,18 +20,63 @@ const CardControlComponent = ({ handleChangeVolume }: any) => {
         <Text text60BL marginL-24 marginB-15>
           Tambah Nutrisi
         </Text>
-        <View row center>
-          {['50', '100', '200'].map((volume: string, index: number) => {
+        <View row center paddingL-10>
+          {['20', '50'].map((volume: string, index: number) => {
             return (
-              <View key={index} paddingR-10>
-                <Button
-                  label={`${volume} ml`}
-                  labelStyle={styles.buttonLabelStyle}
-                  size="medium"
-                  style={{ width: Dimensions.get('window').width / 5 }}
-                  onPress={() => handleChangeVolume(volume)}
-                />
-              </View>
+              <GridView
+                key={index}
+                items={[
+                  {
+                    title: volume,
+                    onPress: () => handleChangeVolume(volume),
+                  },
+                ]}
+                numColumns={2}
+                viewWidth={100}
+                renderCustomItem={() => {
+                  return (
+                    <Button
+                      key={index}
+                      marginV-5
+                      label={`${volume} ml`}
+                      labelStyle={styles.buttonLabelStyle}
+                      size="medium"
+                      style={{ width: Dimensions.get('window').width / 10 }}
+                      onPress={() => handleChangeVolume(volume)}
+                    />
+                  );
+                }}
+              />
+            );
+          })}
+        </View>
+        <View row center paddingL-10>
+          {['100', '200'].map((volume: string, index: number) => {
+            return (
+              <GridView
+                key={index}
+                items={[
+                  {
+                    title: volume,
+                    onPress: () => handleChangeVolume(volume),
+                  },
+                ]}
+                numColumns={2}
+                viewWidth={100}
+                renderCustomItem={() => {
+                  return (
+                    <Button
+                      key={index}
+                      marginV-5
+                      label={`${volume} ml`}
+                      labelStyle={styles.buttonLabelStyle}
+                      size="medium"
+                      style={{ width: Dimensions.get('window').width / 10 }}
+                      onPress={() => handleChangeVolume(volume)}
+                    />
+                  );
+                }}
+              />
             );
           })}
         </View>
@@ -32,6 +84,16 @@ const CardControlComponent = ({ handleChangeVolume }: any) => {
     </View>
   );
 };
+
+/* <GridView key={index} paddingR-10>
+                <Button
+                  label={`${volume} ml`}
+                  labelStyle={styles.buttonLabelStyle}
+                  size="medium"
+                  style={{ width: Dimensions.get('window').width / 5 }}
+                  onPress={() => handleChangeVolume(volume)}
+                />
+              </GridView> */
 
 const styles = StyleSheet.create({
   cardContainer: {
